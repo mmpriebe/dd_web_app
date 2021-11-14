@@ -1,0 +1,21 @@
+---
+- name: Install Flask dependencies
+  pip: 
+    name: "{{ item }}"
+    state: present
+    executable: pip3
+  with_items:
+    - flask
+    - flask-mysql
+
+- name: Copy source code
+  copy: 
+    src: roles/flask_web/files/app.py 
+    dest: /opt/
+
+- name: Start Web Server
+  shell: "nohup flask run --host=0.0.0.0 &"
+  environment:
+    FLASK_APP: /opt/app.py  
+
+  

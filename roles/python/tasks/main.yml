@@ -1,0 +1,14 @@
+---
+# tasks file for python
+- name: Install required dependencies
+  apt: 
+    name: "{{ item }}" 
+    state: present
+  with_items:
+    - python-setuptools
+    - python3-dev
+    - default-libmysqlclient-dev
+    - python3-pymysql
+    - build-essential
+    - python3-pip
+    - python3-mysqldb  

@@ -1,0 +1,3 @@
+[db_and_web_servers]
+db_and_web_server1 ansible_host=ec2-18-231-112-154.sa-east-1.compute.amazonaws.com
+db_and_web_server2 ansible_host=ec2-54-232-18-67.sa-east-1.compute.amazonaws.com
