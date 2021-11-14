@@ -5,11 +5,18 @@
   any_errors_fatal: True
   roles:
     - aws_instance
-    - aws_loadbalancer
 
-- hosts: db_and_web_server1, db_and_web_server2
+- name: Setup DB Servers
+  hosts: db_servers
   any_errors_fatal: True
   roles:
     - python
     - mysql_db
+
+- name: Setup Web Servers
+  hosts: web_servers
+  any_errors_fatal: True
+  roles:
+    - python
     - flask_web
+

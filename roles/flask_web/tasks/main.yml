@@ -8,14 +8,13 @@
     - flask
     - flask-mysql
 
-- name: Copy source code
-  copy: 
-    src: roles/flask_web/files/app.py 
-    dest: /opt/
+- name: Download app from git
+  git: 
+    repo: 'https://github.com/mmpriebe/flask_app.git'
+    dest: /opt/app
 
 - name: Start Web Server
   shell: "nohup flask run --host=0.0.0.0 &"
   environment:
-    FLASK_APP: /opt/app.py  
+    FLASK_APP: /opt/app/app.py  
 
-  
