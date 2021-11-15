@@ -13,16 +13,17 @@
     state: started
     enabled: yes
 
-- name: Create Database User 
-  shell: sud mysql -uroot -p12345678 -e"CREATE USER {{ db_user }}@.* identified by {{ db_user_password }} ";
-  ignore_errors: yes
+- name: Example using login_unix_socket to connect to server
+  mysql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_user_password}}"
+    priv: '*.*:ALL,GRANT'
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    state: present
 
-- name: Set Privileges To Database User 
-  shell: sudo mysql -uroot -p12345678 -e"GRANT ALL PRIVILEGES on {{ db_name }}.* to {{ db_user }}";
-  ignore_errors: yes
-
-- name: Create Application Database
-  shell: sudo mysql -uroot -p12345678 -e"CREATE DATABASE {{ db_name }}";
-  ignore_errors: yes
+- name: Create a new database
+  mysql_db:
+    name: "{{ db_name }}"
+    state: present
   
 
