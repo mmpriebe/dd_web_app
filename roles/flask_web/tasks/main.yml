@@ -14,7 +14,7 @@
     dest: /opt/app
 
 - name: Start Web Server
-  shell: "nohup flask run --host=0.0.0.0 &"
+  shell: "nohup flask run --host=0.0.0.0 --port=80 &"
   environment:
     FLASK_APP: /opt/app/app.py  
 

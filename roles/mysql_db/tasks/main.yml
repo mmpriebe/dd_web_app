@@ -13,17 +13,16 @@
     state: started
     enabled: yes
 
-- name: Create Application Database
-  mysql_db: 
-    name: "{{ db_name }}"
-    state: present
+- name: Create Database User 
+  shell: sud mysql -uroot -p12345678 -e"CREATE USER {{ db_user }}@.* identified by {{ db_user_password }} ";
   ignore_errors: yes
 
-- name: Create Database User
-  mysql_user: 
-    name: "{{ db_user }}"
-    password: "{{ db_user_password }}"
-    priv: '*.*:ALL'
-    state: present
-    host: '%'
+- name: Set Privileges To Database User 
+  shell: sudo mysql -uroot -p12345678 -e"GRANT ALL PRIVILEGES on {{ db_name }}.* to {{ db_user }}";
   ignore_errors: yes
+
+- name: Create Application Database
+  shell: sudo mysql -uroot -p12345678 -e"CREATE DATABASE {{ db_name }}";
+  ignore_errors: yes
+  
+

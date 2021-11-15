@@ -1,0 +1,43 @@
+---
+#  - name: Create ec2 security_group
+#    hosts: localhost
+#    gather_facts: false
+#    become: false
+#    vars_files: "vars/main.yml"
+#    tasks:
+#     - name: Create an EC2 instance
+#       ec2:
+#         key_name: "{{ ec2_keypair }}"
+#         region: "{{ ec2_region }}"
+#         instance_type: "{{ ec2_instance_type }}"
+#         group: "{{ security_group }}"
+#         image: "{{ ec2_image }}"
+#         wait: yes
+#         instance_tags:
+#           Name: "{{ item }}"
+#           Env: "Dev"
+#       with_items: "{{ ec2_tag_name }}"
+#       register: ec2
+
+#     - name: Wait for SSH to come up
+#       local_action: wait_for
+#                     host={{ item.public_ip_address }}
+#                     port=22
+#                     state=started
+#       with_items: ec2.instances
+
+ - name: Deploy Web App
+   hosts: tag_Name_db_server
+   become: True
+   gather_facts: false
+   roles:
+    - role: python
+    - role: mysql_db
+
+#  - name: Deploy Web App
+#    hosts: tag_Name_web_server1
+#    become: True
+#    gather_facts: True
+#    roles:
+#     - role: python
+#     - role: flask_web

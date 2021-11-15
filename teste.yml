@@ -1,0 +1,6 @@
+---
+ - hosts: localhost
+   become: false
+   tasks:
+    - name: Print command
+      debug: msg="MYSQL_DATABASE_HOST={{ hostvars[groups['all'][0]]['private_ip'] }} FLASK_APP=/opt/simple-webapp/app.py nohup flask run --host=0.0.0.0 --port=80 &"
